@@ -20,8 +20,8 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-app.use('/api', routes)
-app.use('/api/user', user)
+app.use('/', routes)
+app.use('/api/worker/user', user)
 app.use('/api/upload_photos', upload_photos)
 
 app.listen(3000, () => {
