@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes/routes")
 const user = require("./routes/user")
+const upload_photos = require("./routes/photo_upload")
 
 const app = express();
 
@@ -21,6 +22,7 @@ db.once("open", function () {
 
 app.use('/api', routes)
 app.use('/api/user', user)
+app.use('/api/upload_photos', upload_photos)
 
 app.listen(3000, () => {
   console.log("Server is running at port 3000");
