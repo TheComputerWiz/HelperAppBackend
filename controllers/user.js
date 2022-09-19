@@ -1,7 +1,37 @@
 const User = require("../models/user");
+var bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
 
 exports.add_user = async (request, response) => {
-    const user = new User(request.body);
+    const { name, phone_number, email, password, address } = request.body
+    // Validate user input
+    if (!(email && password && name && phone_number)) {
+      response.status(400).send("All input is required");
+    }
+
+    // check if user already exist
+    // Validate if user exist in our database
+    const oldUser = await User.findOne({ email });
+
+    if (oldUser) {
+      return res.status(409).send("User Already Exist. Please Login");
+    }
+
+    //Encrypt user password
+    encryptedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({name, phone_number, email:email.toLowerCase(), password: encryptedPassword, address});
+
+    // Create token
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      process.env.TOKEN_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+    // save user token
+    user.token = token;
   
     try {
       await user.save();

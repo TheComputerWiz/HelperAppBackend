@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes/routes")
@@ -8,11 +9,7 @@ const app = express();
 
 app.use(express.json());
 
-const password = "lakers08"
-const database = "HelpApp"
-const cluster = "cluster0"
-
-mongoose.connect(`mongodb+srv://admin:${password}@${cluster}.revti1e.mongodb.net/${database}`);
+mongoose.connect(process.env.MONGO_URI);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
@@ -24,6 +21,6 @@ app.use('/', routes)
 app.use('/api/worker/user', user)
 app.use('/api/upload_photos', upload_photos)
 
-app.listen(3000, () => {
+app.listen(process.env.API_PORT, () => {
   console.log("Server is running at port 3000");
 });
