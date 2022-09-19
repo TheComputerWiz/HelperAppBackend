@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    required: true,
   },
   phone_number: {
     type: Number,
@@ -25,7 +24,6 @@ const UserSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
   },
   example_of_work_images: {
     type: Array,
