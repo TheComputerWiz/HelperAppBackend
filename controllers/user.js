@@ -41,6 +41,23 @@ exports.add_user = async (request, response) => {
     }
 };
 
+exports.login_user = async (request, response) => {
+  const body = request.body;
+  const user = await User.findOne({ email: body.email });
+  if (user) {
+    // check user password with hashed password stored in the database
+    const validPassword = await bcrypt.compare(body.password, user.password);
+    if (validPassword) {
+      response.status(200).json({ data: {msg:"Valid password", status:1} });
+    } else {
+      response.status(400).json({ data: {error: "Invalid Password", status:0 } });
+    }
+  } else {
+    res.status(401).json({ data: { error: "User does not exist", status:2 } });
+  }
+  
+};
+
 exports.update_user = async (request, response) => {
   const { _id, name, phone_number, email, password, address, avatar, username, example_of_work_images } = request.body;
 
