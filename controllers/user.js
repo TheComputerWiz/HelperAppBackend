@@ -48,7 +48,7 @@ exports.login_user = async (request, response) => {
     // check user password with hashed password stored in the database
     const validPassword = await bcrypt.compare(body.password, user.password);
     if (validPassword) {
-      response.status(200).json({ data: {msg:"Valid password", status:1} });
+      response.status(200).json({ data: {msg:"Valid password", status:1, user} });
     } else {
       response.status(400).json({ data: {error: "Invalid Password", status:0 } });
     }
