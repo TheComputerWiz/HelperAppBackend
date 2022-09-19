@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
+  avatar: {
+    type: String,
+  },
   name: {
+    type: String,
+    required: true,
+  },
+  username: {
     type: String,
     required: true,
   },
@@ -20,6 +27,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  example_of_work_images: {
+    type: Array,
+  },
+
 });
 
 const User = mongoose.model("User", UserSchema);

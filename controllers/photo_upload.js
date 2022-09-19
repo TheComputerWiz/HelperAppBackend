@@ -1,4 +1,5 @@
 var cloudinary = require('cloudinary').v2;
+const fs = require('fs')
 
 cloudinary.config({ 
     cloud_name: 'dwnqwem6e', 
@@ -7,12 +8,15 @@ cloudinary.config({
 })
 
 exports.upload_photo = async (req, res) => {
-    const {url} = req.body
-    
+    const { url } = req.body
+
+    // Upload file to the Cloudinary server
     cloudinary.uploader
     .upload(url)
     .then(result=>{
         res.status(200).send({result})
     })
     .catch(err => console.log(err))
+    
+    
 }

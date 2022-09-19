@@ -11,6 +11,21 @@ exports.add_user = async (request, response) => {
     }
 };
 
+exports.update_user = async (request, response) => {
+  const { _id, name, phone_number, email, password, address, avatar, username, example_of_work_images } = request.body;
+
+  User.findByIdAndUpdate(_id, 
+    { _id, name, phone_number, email, password, address, avatar, username, example_of_work_images },
+    function (err, docs) {
+      if (err){
+          response.json({data:err})
+      }
+      else{
+          response.json({data:docs})
+      }
+    });
+};
+
 exports.getAllUsers = async (request, response) => {
     const users = await User.find({});
   
