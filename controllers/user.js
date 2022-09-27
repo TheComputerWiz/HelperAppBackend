@@ -3,7 +3,7 @@ var bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 
 exports.add_user = async (request, response) => {
-    const { name, phone_number, email, password, address } = request.body
+    const { name, phone_number, email, password, address, language } = request.body
     // Validate user input
     if (!(email && password && name && phone_number)) {
       response.status(400).send("All input is required");
@@ -20,7 +20,7 @@ exports.add_user = async (request, response) => {
     //Encrypt user password
     encryptedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({name, phone_number, email:email.toLowerCase(), password: encryptedPassword, address});
+    const user = new User({name, phone_number, email:email.toLowerCase(), password: encryptedPassword, address, language});
 
     // Create token
     const token = jwt.sign(

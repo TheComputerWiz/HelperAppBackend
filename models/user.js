@@ -29,6 +29,9 @@ const UserSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  language: {
+    type: String,
+  },
   example_of_work_images: {
     type: Array,
   },
